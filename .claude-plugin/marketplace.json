@@ -2,7 +2,7 @@
   "$schema": "https://code.claude.com/schemas/marketplace.json",
   "name": "claude-skills",
   "owner": {
-    "name": "Ngoc Dang",
+    "name": "trungnguyen",
     "url": "https://github.com/trungnguyen6890"
   },
   "plugins": [
