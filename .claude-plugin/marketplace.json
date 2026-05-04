@@ -1,0 +1,15 @@
+{
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
+  "name": "init-vibe",
+  "owner": {
+    "name": "Ngoc Dang",
+    "url": "https://github.com/trungnguyen6890"
+  },
+  "plugins": [
+    {
+      "name": "init-vibe",
+      "source": "./",
+      "description": "Vibe-coding starter pack — scaffold Claude-friendly project structure, manage spec context loading, automate multi-agent PDCA workflows for large projects."
+    }
+  ]
+}
