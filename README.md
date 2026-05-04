@@ -27,16 +27,18 @@ In Claude Code:
 
 ```
 /plugin marketplace add trungnguyen6890/init-vibe
-/plugin install init-vibe
+/plugin install init-vibe@claude-skills
 ```
 
 Replace `trungnguyen6890` with your GitHub username if you fork.
 
+The marketplace identifier is `claude-skills` (the bundle host); the plugin name is `init-vibe`. After install, skills appear as plugin `init-vibe@claude-skills`.
+
 ## Update later
 
 ```
-/plugin marketplace update init-vibe
-/plugin update init-vibe
+/plugin marketplace update claude-skills
+/plugin update init-vibe@claude-skills
 ```
 
 ## Project structure scaffolded by `init-vibe-scaffold`
