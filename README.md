@@ -36,10 +36,37 @@ The marketplace identifier is `claude-skills` (the bundle host); the plugin name
 
 ## Update later
 
+Manual via Claude Code:
+
 ```
 /plugin marketplace update claude-skills
 /plugin update init-vibe@claude-skills
 ```
+
+Or use the included shell script `scripts/claude-sync` for one-command sync of all git-based marketplaces:
+
+```bash
+# One-time setup (per device)
+mkdir -p ~/bin
+cp ~/.claude/plugins/marketplaces/claude-skills/scripts/claude-sync ~/bin/
+chmod +x ~/bin/claude-sync
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
+echo "alias cs='claude-sync'" >> ~/.zshrc
+source ~/.zshrc
+
+# Then anytime to sync
+claude-sync                  # sync all git marketplaces
+claude-sync claude-skills    # sync only this one
+cs                           # short alias
+
+# After sync, restart Claude Code session to reload skills
+```
+
+The script:
+- Pulls latest from each git-based marketplace (`~/.claude/plugins/marketplaces/*/`)
+- Skips non-git marketplaces (e.g. anthropics official uses different mechanism)
+- Shows commit deltas (before -> after + last 5 changes)
+- Reminds to restart Claude Code session after sync
 
 ## Project structure scaffolded by `init-vibe-scaffold`
 

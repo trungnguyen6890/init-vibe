@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# claude-sync — pull latest marketplace + skills from git
+# Usage: claude-sync [marketplace_name]
+#   No arg → sync all known marketplaces (git-based)
+#   With arg → sync specific marketplace by name
+
+set -e
+
+MARKETPLACES_DIR="$HOME/.claude/plugins/marketplaces"
+
+if [ ! -d "$MARKETPLACES_DIR" ]; then
+  echo "[!] No marketplaces directory found: $MARKETPLACES_DIR"
+  echo "    Have you installed any marketplace? Run: /plugin marketplace add <repo>"
+  exit 1
+fi
+
+sync_one() {
+  local name="$1"
+  local path="$MARKETPLACES_DIR/$name"
+
+  if [ ! -d "$path" ]; then
+    echo "[!] Marketplace not found: $name"
+    return 1
+  fi
+
+  if [ ! -d "$path/.git" ]; then
+    echo "[skip] $name (not a git repo, skipping)"
+    return 0
+  fi
+
+  echo "[sync] $name"
+  cd "$path"
+  local before=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+  git pull --quiet --ff-only 2>&1 | sed 's/^/       /'
+  local after=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+
+  if [ "$before" = "$after" ]; then
+    echo "       already up-to-date ($after)"
+  else
+    echo "       updated $before -> $after"
+    local commits=$(git log --oneline "$before..$after" 2>/dev/null | head -5)
+    if [ -n "$commits" ]; then
+      echo "       changes:"
+      echo "$commits" | sed 's/^/         /'
+    fi
+  fi
+  cd - > /dev/null
+}
+
+if [ -n "$1" ]; then
+  sync_one "$1"
+else
+  echo "Syncing all git-based marketplaces in $MARKETPLACES_DIR"
+  echo ""
+  for dir in "$MARKETPLACES_DIR"/*/; do
+    if [ -d "$dir" ]; then
+      name=$(basename "$dir")
+      sync_one "$name"
+    fi
+  done
+fi
+
+echo ""
+echo "Done. Restart Claude Code to load updated skills into session."
