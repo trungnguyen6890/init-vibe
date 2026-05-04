@@ -1,23 +1,25 @@
 # init-vibe
 
-> Vibe-coding starter pack — scaffold Claude-friendly project structure, manage spec context loading, automate multi-agent PDCA workflows.
+> Vibe-coding starter pack - scaffold Claude-friendly project structure, manage spec context loading, automate multi-agent PDCA workflows, enforce ASCII-only document style.
 
-For large projects (≥10 features, multi-domain) where you want Claude to implement features fast without context bloat or hallucination.
+For large projects (>=10 features, multi-domain) where you want Claude to implement features fast without context bloat or hallucination.
 
 ## What's inside
 
-3 complementary skills that work together:
+4 complementary skills that work together:
 
 | Skill | Purpose | When to use |
 |---|---|---|
 | **init-vibe-scaffold** | Scaffold project structure (specs/ + domains/ + 6 core file templates) | Starting a new project |
-| **layer-loading-strategy** | Load only relevant specs when implementing — prevent context bloat & hallucination | Implementing each feature |
-| **pdca-agent-automation** | Multi-agent workflow (PM → builder/reviewer/marketer) with full Plan-Do-Check-Act automation | Dispatching agents |
+| **layer-loading-strategy** | Load only relevant specs when implementing - prevent context bloat & hallucination | Implementing each feature |
+| **pdca-agent-automation** | Multi-agent workflow (PM -> builder/reviewer/marketer) with full Plan-Do-Check-Act automation | Dispatching agents |
+| **no-ai-chars** | Enforce ASCII + Vietnamese diacritics only in docs - no em-dash, smart quotes, emoji, or AI-typographic chars | Writing/cleaning any document |
 
 Use them independently OR as a stack:
-1. `init-vibe-scaffold` → structure the project
-2. `layer-loading-strategy` → read specs efficiently while implementing
-3. `pdca-agent-automation` → orchestrate agents to implement features
+1. `init-vibe-scaffold` -> structure the project
+2. `layer-loading-strategy` -> read specs efficiently while implementing
+3. `pdca-agent-automation` -> orchestrate agents to implement features
+4. `no-ai-chars` -> ensure docs use only standard typeable characters
 
 ## Installation
 
@@ -41,34 +43,35 @@ Replace `trungnguyen6890` with your GitHub username if you fork.
 
 ```
 project-root/
-├── CLAUDE.md
-└── specs/
-    ├── VISION.md                   # what + why + non-goals (~150 line)
-    ├── STRATEGY.md                 # wedge + phase + business (~250 line)
-    ├── ARCHITECTURE.md             # tech stack + NFR (~400 line)
-    ├── MASTER-INDEX.md             # function inventory + domain map (~250 line)
-    ├── MODULE-INTERFACES.md        # cross-feature TS signatures (~200 line)
-    ├── DECISIONS.md                # append-only decision log (~300 line)
-    └── domains/
-        ├── auth/
-        │   ├── F-LOGIN-EMAIL.md
-        │   └── F-LOGOUT.md
-        ├── payment/
-        │   └── F-CHECKOUT.md
-        └── ...
++-- CLAUDE.md
++-- specs/
+    +-- VISION.md                   # what + why + non-goals (~150 line)
+    +-- STRATEGY.md                 # wedge + phase + business (~250 line)
+    +-- ARCHITECTURE.md             # tech stack + NFR (~400 line)
+    +-- MASTER-INDEX.md             # function inventory + domain map (~250 line)
+    +-- MODULE-INTERFACES.md        # cross-feature TS signatures (~200 line)
+    +-- DECISIONS.md                # append-only decision log (~300 line)
+    +-- domains/
+        +-- auth/
+        |   +-- F-LOGIN-EMAIL.md
+        |   +-- F-LOGOUT.md
+        +-- payment/
+        |   +-- F-CHECKOUT.md
+        +-- ...
 ```
 
 **Feature-based** (not module-based). Each feature file ~150-250 line, self-contained, with `load_order` header for layer-loading skill.
 
 ## Why this structure?
 
-Tested on real production project (Asklaw.vn — 22 modules, 125 features, 6000+ line specs). Original module-based 1168-line Master Design with 22 detail design files at 600+ line each caused context bloat and spec hallucination.
+Tested on real production project (Asklaw.vn - 22 modules, 125 features, 6000+ line specs). Original module-based 1168-line Master Design with 22 detail design files at 600+ line each caused context bloat and spec hallucination.
 
 This bundle is the **lessons learned**:
 - Feature-based beats module-based for Claude implementation
 - Lean files (~200 line) beat heavy spec docs (600+ line)
 - Single source of truth per concern (Master = index, Interfaces = signatures, Decisions = rationale)
 - Layer loading discipline (~1100 line active context max) beats naive "load all specs"
+- ASCII + Vietnamese diacritics only in docs - no AI typographic signature
 
 ## Adding new skills to this bundle
 
@@ -89,10 +92,10 @@ git push
 
 ## License
 
-MIT — use, fork, modify freely.
+MIT - use, fork, modify freely.
 
 ---
 
-**Author**: [@trungnguyen6890](https://github.com/trungnguyen6890) — built while working on [Asklaw.vn](https://asklaw.vn) (AI legal copilot for Vietnam).
+**Author**: [@trungnguyen6890](https://github.com/trungnguyen6890) - built while working on [Asklaw.vn](https://asklaw.vn) (AI legal copilot for Vietnam).
 
 #vibecoding #initvibe #claudecode
